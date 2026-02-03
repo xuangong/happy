@@ -42,11 +42,11 @@ FROM caddy:alpine AS runner
 COPY --from=builder /repo/packages/happy-app/dist /srv
 
 # Create Caddyfile for SPA routing
-RUN echo ':80 { \
-    root * /srv \
-    encode gzip \
-    try_files {path} {path}.html {path}/ /index.html \
-    file_server \
-}' > /etc/caddy/Caddyfile
+RUN printf ':80 {\n\
+    root * /srv\n\
+    encode gzip\n\
+    try_files {path} {path}.html {path}/ /index.html\n\
+    file_server\n\
+}\n' > /etc/caddy/Caddyfile
 
 EXPOSE 80
